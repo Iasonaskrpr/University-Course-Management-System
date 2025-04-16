@@ -1,0 +1,67 @@
+Lygizou Anastasia
+Female
+29
+lygizou@gmail.com
+Object Oriented Programming
+Signals and Systems
+end
+Giannopoulou Arxontia
+Female
+30
+giannopoulou@gmail.com
+Linear Algebra
+Number theory
+end
+Tzamos Xrhstos
+Male
+30
+tzamos@gmail.com
+Discrete Mathematics
+Applied Mathematics
+Analysis
+end
+Pasxalhs Antwdhs
+Male
+40
+pasxalhs@gmail.com
+Logical Design
+Theory of Computation
+end
+Koumparakhs Manolhs 
+Male
+40
+koumparakhs@gmail.com
+Artificial Intelligence
+Parallel Algorithms
+end
+Xatzhkokolakhs Kwstantinos
+Male 
+33
+xatzhkokolakhs@gmail.com
+Algorithms and Complexity
+Cryptography
+Introduction to Programming
+end
+Tsipouras Aristeidhs
+Male 
+40
+tsipouras@gmail.com
+Electromagnetic Physics
+Graphics
+end
+Gizopoulos Dimitrhs
+Male 
+40
+gizop@gmail.com
+Computer Architecture
+Information systems
+Communication Systems
+end
+Roussou Maria
+Female 
+40
+roussou@gmail.com
+Principles of Programming Languages
+Compilers
+Computer Science Mathematics
+end

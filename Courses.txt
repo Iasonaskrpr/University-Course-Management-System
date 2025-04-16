@@ -1,0 +1,88 @@
+Linear Algebra
+1
+6
+1
+Discrete Mathematics
+1
+7
+0
+Introduction to Programming
+1
+7
+1
+Logical Design
+1
+6
+1
+Applied Mathematics
+2
+6
+0
+Computer Architecture
+2
+7
+1
+Electromagnetic Physics
+2
+8
+1
+Analysis
+3
+8
+1
+Object Oriented Programming
+3
+8
+1
+Signals and Systems
+3
+6
+1
+Algorithms and Complexity
+4
+8
+1
+Communication Systems
+4
+7
+1
+Artificial Intelligence
+5
+6
+0
+Graphics
+5
+6
+0
+Principles of Programming Languages
+5
+6
+1
+Compilers
+6
+6
+1
+Computer Science Mathematics
+6
+7
+0
+Theory of Computation
+6
+6
+0
+Number theory
+7
+6
+0
+Information systems
+7
+6
+1
+Cryptography
+8
+7
+0
+Parallel Algorithms
+8
+6
+1

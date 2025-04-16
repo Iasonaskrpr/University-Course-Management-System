@@ -1,0 +1,137 @@
+George Papadopoulos
+Male
+18
+sdi2300001@di.uoa.gr
+1115202100001
+1
+end
+Elpida Papa
+Female
+18
+sdi2300100@di.uoa.gr
+1115202100100
+1
+end
+Delia Pachitac
+Female
+20
+sdi2200125@di.uoa.gr 
+1115202200125
+3
+Applied Mathematics
+8
+Computer Architecture
+8
+Discrete Mathematics
+7
+Introduction to Programming
+7
+Linear Algebra
+9
+Logical Design
+10
+end
+Iason Karaprodromidhs
+Male
+19
+sdi220000@di.uoa.gr  
+1115202200064
+3
+Computer Architecture
+9
+Discrete Mathematics
+7
+Electromagnetic Physics
+6
+Introduction to Programming
+9
+Linear Algebra
+8
+Logical Design
+9
+end
+Maria Kyriakopoulou
+Female
+21
+sdi2100200@di.uoa.gr 
+11152002100200
+5
+Algorithms and Complexity
+8
+Applied Mathematics
+6
+Communication Systems
+7
+Computer Architecture
+5
+Introduction to Programming
+8
+Linear Algebra
+6
+Logical Design
+7
+Signals and Systems
+9
+end
+Giannhs Karagiannhs
+Male
+21
+sdi2100058@di.uoa.gr 
+11152002100058
+5
+Algorithms and Complexity
+7
+Applied Mathematics
+9
+Communication Systems
+7
+Computer Architecture
+6
+Electromagnetic Physics
+7
+Introduction to Programming
+5
+Linear Algebra
+6
+Object Oriented Programming
+8
+Signals and Systems
+5
+end
+Giannhs Karaxaliou
+Male
+21
+sdi2100058@di.uoa.gr 
+11152002100058
+8
+Algorithms and Complexity
+7
+Analysis
+8
+Applied Mathematics
+9
+Communication Systems
+7
+Compilers
+6
+Computer Architecture
+6
+Electromagnetic Physics
+7
+Information systems
+7
+Introduction to Programming
+5
+Linear Algebra
+6
+Logical Design
+10
+Object Oriented Programming
+8
+Parallel Algorithms
+8
+Principles of Programming Languages
+5
+Signals and Systems
+5
+end
