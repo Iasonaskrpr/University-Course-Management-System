@@ -2,12 +2,12 @@
 CXX = g++
 
 # Compile options
-CXXFLAGS = -Wall -Werror -g -std=c++17
+CXXFLAGS = -Wall -Werror -g -std=c++17 -ISource
 
 # Source files
-SRCS = main.cpp file1.cpp
+SRCS = Main/main.cpp Source/file1.cpp
 
-# Object files (auto-generate from SRCS)
+# Object files
 OBJS = $(SRCS:.cpp=.o)
 
 # Executable name
@@ -20,7 +20,7 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CXX) $(OBJS) -o $(TARGET)
 
-# Compile individual .cpp files to .o
+# Compile .cpp to .o
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
@@ -37,7 +37,7 @@ clean:
 	rm -f $(OBJS) $(TARGET)
 
 # Release build without debug symbols
-release: CXXFLAGS := -O2 -Wall -std=c++17
+release: CXXFLAGS := -O2 -Wall -std=c++17 -ISource
 release: clean all
 
 .PHONY: all run valgrind clean release

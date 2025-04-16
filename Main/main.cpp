@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "file1.h"
+#include "../Source/file1.h"
 using namespace std;
 
 
@@ -22,7 +22,7 @@ int main(void){
     bool mandatory;
 
     //we read from file Courses.txt and insert them to the vector Courses of the secretary
-    fin.open("Courses.txt");
+    fin.open("Data/Courses.txt");
     while(fin){
         getline(fin,name);
         fin >> sem;
@@ -35,7 +35,7 @@ int main(void){
     fin.close();
 
     //we read from file Students.txt and insert them to the vector of Students the secretary
-    fin.open("Students.txt");
+    fin.open("Data/Students.txt");
     while(!fin.eof()){
         getline(fin,name);
         getline(fin,sex);
@@ -63,7 +63,7 @@ int main(void){
     fin.close();
     S.StartSemester();
     //we read from file Professors.txt and insert them to the vector of Professors the secretary
-    fin.open("Professors.txt");
+    fin.open("Data/Professors.txt");
     while(!fin.eof()){
         getline(fin,name);
         getline(fin,sex);
