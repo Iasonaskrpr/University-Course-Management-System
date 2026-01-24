@@ -1,9 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "../Source/file1.h"
-using namespace std;
+#include <unordered_map>
+#include <Secretary.h>
+#include <Student.h>
+#include <Course.h>
 
+using namespace std;
+// TODO: Turn this into a simple UI with the same options
 
 int main(void){
     
@@ -314,15 +318,15 @@ int main(void){
                     //if the Course doesn't exist throw exception
                     Course* C = S.FindCourse(fun);
                     if(C == NULL){
-                        throw string("Couldn't find course");
+                        throw std::string("Couldn't find course");
                     }
                     
                     //write contents of the map in a file "data.txt"
-                    map<string,float> G = C->GetMap();
+                    std::unordered_map<std::string,float> G = C->GetMap();
                     ofstream fout;
                     fout.open("data.txt");
                     fout<< " Students that passed "<< fun <<endl;
-                    map<string,float> :: iterator it = G.begin();
+                    std::unordered_map<string,float> :: iterator it = G.begin();
                     while(it != G.end()){
                         fout << "Name:   " << it->first << "   Grade:" << it->second << endl;
                         it++;
@@ -747,11 +751,11 @@ int main(void){
                                 }
 
                                 //write contents of the map in a file
-                                map<string,float> G = C->GetMap();
+                                std::unordered_map<string,float> G = C->GetMap();
                                 ofstream fout;
                                 fout.open("data.txt");
                                 fout<< " Students that passed "<< fun <<endl;
-                                map<string,float> :: iterator it = G.begin();
+                                std::unordered_map<string,float> :: iterator it = G.begin();
                                 while(it != G.end()){
                                     fout << "Name:   " << it->first << "   Grade:" << it->second << endl;
                                     it++;
