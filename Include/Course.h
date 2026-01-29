@@ -6,6 +6,8 @@
 #include <string>
 #include <unordered_map>
 
+class Professor;
+
 class Course {
 
   std::string Name;

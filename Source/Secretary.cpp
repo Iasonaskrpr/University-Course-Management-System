@@ -44,8 +44,6 @@ Secretary ::Secretary(const Secretary &S) {
     Student *temp1 = new Student((*itr1)->GetName(), (*itr1)->GetAge(),
                                  (*itr1)->Getemail(), (*itr1)->GetSex(),
                                  (*itr1)->GetAM(), (*itr1)->GetSemester());
-    temp1->decreaseCount(); // We reduce the counter so we won't count the
-                            // student twice
     Students.insert(Students.end(), temp1);
     itr1++; // next object
   }
@@ -57,8 +55,6 @@ Secretary ::Secretary(const Secretary &S) {
     Professor *temp2 = new Professor((*itr2)->GetName(), (*itr2)->Getemail(),
                                      (*itr2)->GetAge(), (*itr2)->GetSex(),
                                      (*itr2)->GetCourses());
-    temp2->decreaseCount(); // We reduce the counter so we won't count the
-                            // professor twice
     Professors.insert(Professors.end(), temp2);
     itr2++; // next object
   }
@@ -280,8 +276,6 @@ void Secretary ::operator=(const Secretary &S) {
     Student *temp1 = new Student((*itr1)->GetName(), (*itr1)->GetAge(),
                                  (*itr1)->Getemail(), (*itr1)->GetSex(),
                                  (*itr1)->GetAM(), (*itr1)->GetSemester());
-    temp1->decreaseCount(); // We reduce the counter so we won't count the
-                            // Student twice
     Students.insert(Students.end(), temp1);
     itr1++;
   }
@@ -291,8 +285,6 @@ void Secretary ::operator=(const Secretary &S) {
     Professor *temp2 = new Professor((*itr2)->GetName(), (*itr2)->Getemail(),
                                      (*itr2)->GetAge(), (*itr2)->GetSex(),
                                      (*itr2)->GetCourses());
-    temp2->decreaseCount(); // We reduce the counter so we won't count the
-                            // Professor twice
     Professors.insert(Professors.end(), temp2);
     itr2++;
   }

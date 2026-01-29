@@ -34,6 +34,5 @@ public:
 
   // Functions for the counter
   void printCount();
-  void decreaseCount();
 };
 #endif

@@ -53,22 +53,15 @@ Make sure you have `g++` and `make` installed. Then run:
 
 ```bash
 # Build the program
-make
+mkdir build && cd build
+cmake ..
+cmake --build .
 
-# Run the program
-make run
+# Run the program (names will change)
+./build/Main/Example 
 
-# Run with Valgrind (for memory leak check)
-make valgrind
-
-# Clean all compiled files
-make clean
-
-# Build optimized version (no debug symbols)
-make release
 ```
 
-This will produce an executable named `main`.
 
 ---
 

@@ -23,7 +23,7 @@ Course ::~Course() { Grades.clear(); }
 // set functions
 void Course ::SetSemester(int semester) { this->semester = semester; }
 
-void Course ::SetName(string Name) { this->Name = Name; }
+void Course::SetName(std::string Name) { this->Name = Name; }
 
 void Course ::SetECTS(int ects) { this->ects = ects; }
 
@@ -34,10 +34,10 @@ void Course ::SetProfessor(Professor *Prof) {
   Prof->SetCourses(this);
 }
 
-void Course ::SetGrade(string S, int G) { Grades[S] = G; }
+void Course ::SetGrade(std::string S, int G) { Grades[S] = G; }
 
 // get functions
-string Course ::GetName(void) const { return Name; }
+std::string Course ::GetName(void) const { return Name; }
 
 int Course ::GetSemester(void) const { return semester; }
 
@@ -47,16 +47,16 @@ bool Course ::GetMandatory(void) const { return mandatory; }
 
 Professor *Course::GetProfessor(void) const { return Prof; }
 
-map<string, float> Course ::GetMap(void) const { return Grades; }
+std::unordered_map<std::string, float> Course ::GetMap(void) const { return Grades; }
 
 // Overload function for the output operator that prints the courses with the
 // grades that she passed in that semester
-ostream &operator<<(ostream &str, Course *C) {
-  map<string, float>::iterator it = C->Grades.begin();
-  str << "The students that passed " << C->Name << " are:" << endl;
+std::ostream &operator<<(std::ostream &str, Course *C) {
+  std::unordered_map<std::string, float>::iterator it = C->Grades.begin();
+  str << "The students that passed " << C->Name << " are:" << std::endl;
   while (it != C->Grades.end()) {
     if (it->second >= 5) {
-      str << "Name:   " << it->first << "   Grade:" << it->second << endl;
+      str << "Name:   " << it->first << "   Grade:" << it->second << std::endl;
     }
     it++;
   }
@@ -64,16 +64,16 @@ ostream &operator<<(ostream &str, Course *C) {
 }
 
 // Overload function for the input operator
-istream &operator>>(istream &str, Course *C) {
-  string temp;
-  cout << "Give the course's name: ";
-  getline(str >> ws, C->Name); // reads a string with the spaces because the
+std::istream &operator>>(std::istream &str, Course *C) {
+  std::string temp;
+  std::cout << "Give the course's name: ";
+  std::getline(str >> std::ws, C->Name); // reads a string with the spaces because the
                                // course can contain two words
-  cout << "Give the course's semester: ";
+  std::cout << "Give the course's semester: ";
   str >> C->semester;
-  cout << "Give the course's ects: ";
+  std::cout << "Give the course's ects: ";
   str >> C->ects;
-  cout << "Is this course mandatory? (True/False): ";
+  std::cout << "Is this course mandatory? (True/False): ";
   str >> temp;
   if (temp == "True" || temp == "true")
     C->mandatory = 1;
@@ -98,9 +98,9 @@ void Course ::operator=(const Course &C) {
 
   // we delete the map with the old data and we insert the new data
   Grades.clear();
-  multimap<string, float>::const_iterator itr = C.Grades.begin();
+  std::unordered_multimap<std::string, float>::const_iterator itr = C.Grades.begin();
   while (itr != C.Grades.end()) {
-    Grades.insert(pair<string, float>(itr->first, itr->second));
+    Grades.insert(std::pair<std::string, float>(itr->first, itr->second));
     itr++;
   }
 }

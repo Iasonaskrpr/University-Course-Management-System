@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+class Course;
+
 class Professor : public Person {
 
   std::vector<Course *>

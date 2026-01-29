@@ -1,4 +1,5 @@
 #include <Person.h>
+#include <iostream>
 
 // constructors
 Person::Person() {
@@ -38,7 +39,5 @@ std::string Person ::Getemail(void) const { return email; }
 
 // Functions for the counter
 void Person ::printCount() {
-  cout << "We have this ammount of people: " << get_count() << endl;
+  std::cout << "We have this ammount of people: " << get_count() << std::endl;
 }
-
-void Person ::decreaseCount() { count--; }
