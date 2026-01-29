@@ -1,6 +1,9 @@
 # 📚 University Course Management System
-[!NOTE] 
-This project is undergoing a transformation. The goal is to use more modern c++ practices (this was a 3rd semester project so our c++ skills were not good) and to become a library that can be used independently, along with adding a simple UI showcasing its features. This README is outdated and will undergo a change eventually.
+
+> [!NOTE] 
+> This project is undergoing a transformation. The goal is to use more modern c++ practices, this was a 3rd semester project so our c++
+> skills were not good, and to become a library that can be used independently, along with adding a simple UI showcasing its features. 
+> This README is outdated and will undergo a change eventually.
 
 > 💻 **Object-Oriented Programming Project**  
 > 👥 Developed by 2 students for the **Department of Informatics and Telecommunications (DIT), University of Athens (UOA)**
