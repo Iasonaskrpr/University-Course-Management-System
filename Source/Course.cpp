@@ -47,7 +47,9 @@ bool Course ::GetMandatory(void) const { return mandatory; }
 
 Professor *Course::GetProfessor(void) const { return Prof; }
 
-std::unordered_map<std::string, float> Course ::GetMap(void) const { return Grades; }
+std::unordered_map<std::string, float> Course ::GetMap(void) const {
+  return Grades;
+}
 
 // Overload function for the output operator that prints the courses with the
 // grades that she passed in that semester
@@ -67,8 +69,9 @@ std::ostream &operator<<(std::ostream &str, Course *C) {
 std::istream &operator>>(std::istream &str, Course *C) {
   std::string temp;
   std::cout << "Give the course's name: ";
-  std::getline(str >> std::ws, C->Name); // reads a string with the spaces because the
-                               // course can contain two words
+  std::getline(str >> std::ws,
+               C->Name); // reads a string with the spaces because the
+                         // course can contain two words
   std::cout << "Give the course's semester: ";
   str >> C->semester;
   std::cout << "Give the course's ects: ";
@@ -98,7 +101,8 @@ void Course ::operator=(const Course &C) {
 
   // we delete the map with the old data and we insert the new data
   Grades.clear();
-  std::unordered_multimap<std::string, float>::const_iterator itr = C.Grades.begin();
+  std::unordered_multimap<std::string, float>::const_iterator itr =
+      C.Grades.begin();
   while (itr != C.Grades.end()) {
     Grades.insert(std::pair<std::string, float>(itr->first, itr->second));
     itr++;
