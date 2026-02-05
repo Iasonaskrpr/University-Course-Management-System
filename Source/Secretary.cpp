@@ -1,76 +1,6 @@
 #include <Secretary.h>
 #include <fstream>
 int ReqECTS = 90;
-// constructor
-Secretary ::Secretary() {}
-
-// destructor
-Secretary ::~Secretary() {
-
-  // delete vector with students
-  std::vector<Student *>::iterator it1 = Students.begin();
-  while (it1 != Students.end()) {
-    delete *it1;
-    it1++;
-  }
-  Students.erase(Students.begin(), Students.end());
-
-  // delete vector with Professors
-  std::vector<Professor *>::iterator it2 = Professors.begin();
-  while (it2 != Professors.end()) {
-    delete *it2;
-    it2++;
-  }
-  Professors.erase(Professors.begin(), Professors.end());
-
-  // delete vector with courses
-  std::vector<Course *>::iterator it3 = Courses.begin();
-  while (it3 != Courses.end()) {
-    delete *it3;
-    it3++;
-  }
-  Courses.erase(Courses.begin(), Courses.end());
-}
-
-// Copy contructor
-Secretary ::Secretary(const Secretary &S) {
-
-  // we initialize every vector of the class Secretary
-  std::vector<Student *>::const_iterator itr1 =
-      S.Students
-          .begin(); // Const iterator because secretary S is a const variable
-  while (itr1 != S.Students.end()) {
-
-    Student *temp1 = new Student((*itr1)->GetName(), (*itr1)->GetAge(),
-                                 (*itr1)->Getemail(), (*itr1)->GetSex(),
-                                 (*itr1)->GetAM(), (*itr1)->GetSemester());
-    Students.insert(Students.end(), temp1);
-    itr1++; // next object
-  }
-
-  // we initialize every vector of the class Professor
-  std::vector<Professor *>::const_iterator itr2 = S.Professors.begin();
-  while (itr2 != S.Professors.end()) {
-
-    Professor *temp2 = new Professor((*itr2)->GetName(), (*itr2)->Getemail(),
-                                     (*itr2)->GetAge(), (*itr2)->GetSex(),
-                                     (*itr2)->GetCourses());
-    Professors.insert(Professors.end(), temp2);
-    itr2++; // next object
-  }
-
-  // we initialize every vector of the class Course
-  std::vector<Course *>::const_iterator itr3 = S.Courses.begin();
-  while (itr3 != S.Courses.end()) {
-
-    Course *temp3 = new Course((*itr3)->GetName(), (*itr3)->GetSemester(),
-                               (*itr3)->GetECTS(), (*itr3)->GetMandatory());
-    Courses.insert(Courses.end(), temp3);
-    itr3++; // next object
-  }
-
-  MandatoryCount = S.MandatoryCount;
-}
 
 // set and get function
 void Secretary ::SetMandatoryCount(int MandatoryCount) {
@@ -80,42 +10,32 @@ int Secretary ::GetMandatoryCount(void) const { return MandatoryCount; }
 
 // find the Student in the vector based on the name and if he/she doesn't exist
 // return NULL
-Student *Secretary ::FindStud(std::string S) {
-  std::vector<Student *>::iterator it = Students.begin();
-  while (it != Students.end()) {
-    if ((*it)->GetName() == S) {
-      return (*it);
-    }
-    it++;
+std::shared_ptr<Student> Secretary::FindStud(int id) {
+  auto it = Students.find(id);
+  if (it != Students.end()) {
+    return it->second;
   }
-  return NULL;
+  return nullptr;
 }
 
 // find the Professor in the vector based on the name and if he/she doesn't
 // exist return NULL
-Professor *Secretary ::FindProf(std::string P) {
-  std::vector<Professor *>::iterator it = Professors.begin();
-  while (it != Professors.end()) {
-    if ((*it)->GetName() == P) {
-      return *it;
-    }
-
-    it++;
+std::shared_ptr<Professor> Secretary::FindProf(int id) {
+  auto it = Professors.find(id);
+  if (it != Professors.end()) {
+    return it->second; 
   }
-  return NULL;
+  return nullptr;
 }
 
 // find the Course in the vector based on the name and if it doesn't exist
 // return NULL
-Course *Secretary ::FindCourse(std::string C) {
-  std::vector<Course *>::iterator it = Courses.begin();
-  while (it != Courses.end()) {
-    if ((*it)->GetName() == C) {
-      return *it;
-    }
-    it++;
+std::shared_ptr<Course> Secretary::FindCourse(int id) {
+  auto it = Courses.find(id);
+  if (it != Courses.end()) {
+    return it->second;
   }
-  return NULL;
+  return nullptr;
 }
 
 // returns a vector with all the students that can get a degree and prints them
@@ -138,13 +58,13 @@ std::vector<Student *> Secretary ::Degree(void) {
 }
 
 // we print the statistics of the teacher if he exists
-void Secretary ::PrintStats(std::string P) {
+void Secretary ::PrintStats(const std::string &P) {
   Professor *Prof = FindProf(P);
   Prof->PrintStats();
 }
 
 // the function enrolls a student to a course
-bool Secretary ::RegisterStudent(std::string S, std::string C) {
+bool Secretary ::RegisterStudent(const std::string &S, const std::string &C) {
   Student *Stud = FindStud(S);
   if (Stud == NULL) {
     return false;
@@ -165,7 +85,7 @@ bool Secretary ::RegisterStudent(std::string S, std::string C) {
 }
 
 // the function assigns a course to a professor
-bool Secretary ::AssignProf(std::string P, std::string C) {
+bool Secretary ::AssignProf(const std::string &P, const std::string &C) {
   Professor *Prof = FindProf(P);
   if (Prof == NULL) {
     return false;
@@ -179,45 +99,30 @@ bool Secretary ::AssignProf(std::string P, std::string C) {
 }
 
 // We delete a student from the vector
-void Secretary ::DeleteStudent(std::string S) {
-  std::vector<Student *>::iterator it = Students.begin();
-  while (it != Students.end()) {
-    if ((*it)->GetName() == S) {
-      Student *temp = *it;
-      Students.erase(it);
-      delete temp;
-      return;
-    }
-    it++;
+void Secretary::DeleteStud(int key) {
+  auto it = Students.find(key);
+  if (it != Students.end()) {
+    it->second.reset();
+    Students.erase(it);
   }
 }
 
 // we delete a professor from the vector
-void Secretary ::DeleteProf(std::string P) {
-  std::vector<Professor *>::iterator it = Professors.begin();
-  while (it != Professors.end()) {
-    if ((*it)->GetName() == P) {
-      Professor *temp = *it;
-      Professors.erase(it);
-      delete temp;
-      return;
-    }
-    it++;
+void Secretary::DeleteProf(int key) {
+  auto it = Professors.find(key);
+  if (it != Professors.end()) {
+    it->second.reset();
+    Professors.erase(it);
   }
 }
 
 // we delete a course from the vector
-void Secretary::DeleteCourse(std::string C) {
-  std::vector<Course *>::iterator it = Courses.begin();
-  while (it != Courses.end()) {
-    if ((*it)->GetName() == C) {
-      Course *temp = *it;
+void Secretary::DeleteCourse(int key) { 
+    auto it = Courses.find(key);
+    if (it != Courses.end()) {
+      it->second.reset();
       Courses.erase(it);
-      delete temp;
-      return;
     }
-    it++;
-  }
 }
 
 // function that updates all the datas when a student pass a course
@@ -226,13 +131,13 @@ void Secretary ::PassCourse(Student *S, Course *C, float Grade) {
 }
 
 // we print the all the grades of the student in the specific semester
-void Secretary ::PrintDetailedSemester(std::string S, int semester) {
+void Secretary ::PrintDetailedSemester(const std::string &S, int semester) {
   Student *Stud = FindStud(S);
   Stud->PrintSemester(semester);
 }
 
 // we print the all the grades of the student in the specific year
-void Secretary ::PrintDetailedYear(std::string S, int Year) {
+void Secretary ::PrintDetailedYear(const std::string &S, int Year) {
   Student *Stud = FindStud(S);
   Stud->PrintYear(Year);
 }
@@ -242,65 +147,6 @@ void Secretary ::operator+(Student *S) { Students.insert(Students.end(), S); }
 void Secretary ::operator+(Course *C) { Courses.insert(Courses.end(), C); }
 void Secretary ::operator+(Professor *P) {
   Professors.insert(Professors.end(), P);
-}
-
-// Overload function for the equal operator
-void Secretary ::operator=(const Secretary &S) {
-
-  // we delete all the vectors from the class secretary
-  std::vector<Student *>::iterator it1 = Students.begin();
-  while (it1 != Students.end()) {
-    delete *it1;
-    it1++;
-  }
-  Students.erase(Students.begin(), Students.end());
-  std::vector<Professor *>::iterator it2 = Professors.begin();
-  while (it2 != Professors.end()) {
-    delete *it2;
-    it2++;
-  }
-  Professors.erase(Professors.begin(), Professors.end());
-  std::vector<Course *>::iterator it3 = Courses.begin();
-  while (it3 != Courses.end()) {
-    delete *it3;
-    it3++;
-  }
-  Courses.erase(Courses.begin(), Courses.end());
-
-  // we initialize every vector of the class Secretary
-  std::vector<Student *>::const_iterator itr1 =
-      S.Students
-          .begin(); // Const iterator because secretary S is a const variable
-  while (itr1 != S.Students.end()) {
-
-    Student *temp1 = new Student((*itr1)->GetName(), (*itr1)->GetAge(),
-                                 (*itr1)->Getemail(), (*itr1)->GetSex(),
-                                 (*itr1)->GetAM(), (*itr1)->GetSemester());
-    Students.insert(Students.end(), temp1);
-    itr1++;
-  }
-  std::vector<Professor *>::const_iterator itr2 = S.Professors.begin();
-  while (itr2 != S.Professors.end()) {
-
-    Professor *temp2 = new Professor((*itr2)->GetName(), (*itr2)->Getemail(),
-                                     (*itr2)->GetAge(), (*itr2)->GetSex(),
-                                     (*itr2)->GetCourses());
-    Professors.insert(Professors.end(), temp2);
-    itr2++;
-  }
-  std::vector<Course *>::const_iterator itr3 =
-      S.Courses
-          .begin(); // Const iterator because secretary S is a const variable
-  while (itr3 != S.Courses.end()) {
-
-    Course *temp3 = new Course((*itr3)->GetName(), (*itr3)->GetSemester(),
-                               (*itr3)->GetECTS(), (*itr3)->GetMandatory());
-    Courses.insert(Courses.end(), temp3);
-    itr3++;
-  }
-
-  // we initialize the private member
-  MandatoryCount = S.MandatoryCount;
 }
 
 // function for the start of the semester

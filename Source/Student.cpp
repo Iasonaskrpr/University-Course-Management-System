@@ -180,22 +180,21 @@ std::istream &operator>>(std::istream &str, Student *S) {
   return str;
 }
 
+
+// THESE ARE UNNEEDED ONCE WE SWITCH TO USING SQL DATABASES
 // functions that helps with updating the files
+// FIXME: This needs to make use of a id->Crs name function to work
 std::vector<std::string> Student ::getnamemap(void) {
   std::vector<std::string> temp;
-  std::unordered_map<std::string, Grades>::iterator itr = PassedCourses.begin();
-  while (itr != PassedCourses.end()) {
-    temp.insert(temp.end(), itr->first);
-    itr++;
+  for (auto& Crs : PassedCourses) {
+    temp.insert(temp.end(), Crs.first);
   }
   return temp;
-}
+}   
 std::vector<float> Student ::getgrademap(void) {
   std::vector<float> temp;
-  std::unordered_map<std::string, Grades>::iterator itr = PassedCourses.begin();
-  while (itr != PassedCourses.end()) {
-    temp.insert(temp.end(), itr->second.GetGrade());
-    itr++;
+  for (auto &Crs : PassedCourses) {
+    temp.insert(temp.end(), Crs.second.second);
   }
   return temp;
 }

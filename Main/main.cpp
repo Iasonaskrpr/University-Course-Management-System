@@ -24,9 +24,8 @@ int main(void){
     string name, sex,email,AM,c,endline;
     int age,sem, ects ,g;
     bool mandatory;
-
     //we read from file Courses.txt and insert them to the vector Courses of the secretary
-    fin.open("Data/Courses.txt");
+    fin.open("C:\Users\Jason\source\repos\Iasonaskrpr\University-Course-Management-System\Data\Courses.txt");
     while(fin){
         getline(fin,name);
         fin >> sem;
@@ -39,7 +38,7 @@ int main(void){
     fin.close();
 
     //we read from file Students.txt and insert them to the vector of Students the secretary
-    fin.open("Data/Students.txt");
+    fin.open("C:\Users\Jason\source\repos\Iasonaskrpr\University-Course-Management-System\Data\Students.txt");
     while(!fin.eof()){
         getline(fin,name);
         getline(fin,sex);
@@ -67,7 +66,7 @@ int main(void){
     fin.close();
     S.StartSemester();
     //we read from file Professors.txt and insert them to the vector of Professors the secretary
-    fin.open("Data/Professors.txt");
+    fin.open("C:\Users\Jason\source\repos\Iasonaskrpr\University-Course-Management-System\Data\Professors.txt");
     while(!fin.eof()){
         getline(fin,name);
         getline(fin,sex);

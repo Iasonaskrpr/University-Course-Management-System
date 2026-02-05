@@ -7,23 +7,28 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <memory>
 
 class Secretary {
-
-  std::vector<Student *> Students; // vector of all students in the university
-  std::vector<Professor *>
-      Professors;                // vector of all professors in the university
-  std::vector<Course *> Courses; // vector of all courses in the university
+  Secretary();
+  std::unordered_map<int, std::shared_ptr<Student>>
+      Students; // Mapping of student ID to Student object
+  std::unordered_map<int, std::shared_ptr<Professor>>
+      Professors; // Mapping of professor ID to Professor object
+  std::unordered_map<int, std::shared_ptr<Course>>
+      Courses;        // Mapping of course ID to Course object
   int MandatoryCount;            // the number of the mandatory courses
 public:
-  // constructor
-  Secretary();
+  // This is the static method that controls the access to the singleton
+  // instance
+  static Secretary &getInstance() {
+    static Secretary instance; 
+    return instance;
+  }
 
-  // destructor
-  ~Secretary();
-
-  // copy constructor
-  Secretary(const Secretary &S);
+  // Delete copy and assignment constructor to avoid creation of multiple Secretary instances
+  Secretary(const Secretary &S) = delete;
+  void operator=(const Secretary &S) = delete;
 
   // set and get function
   void SetMandatoryCount(int);
@@ -33,28 +38,27 @@ public:
   void operator+(Student *S);
   void operator+(Professor *P);
   void operator+(Course *C);
-  void operator=(const Secretary &S);
 
   // finds the object based on its name
-  Course *FindCourse(std::string);
-  Professor *FindProf(std::string);
-  Student *FindStud(std::string);
+  std::shared_ptr<Course> FindCourse(int);
+  std::shared_ptr<Professor> FindProf(int);
+  std::shared_ptr<Student> FindStud(int);
 
   // delete functions
-  void DeleteStudent(std::string);
-  void DeleteProf(std::string);
-  void DeleteCourse(std::string);
+  void DeleteStud(int);
+  void DeleteProf(int);
+  void DeleteCourse(int);
 
   // returns a vector with all the students that can get a degree
   std::vector<Student *> Degree(void);
 
   // functions with different operations
-  void PrintStats(std::string);
-  bool RegisterStudent(std::string, std::string);
-  bool AssignProf(std::string, std::string);
+  void PrintStats(const std::string&);
+  bool RegisterStudent(const std::string &, const std::string &);
+  bool AssignProf(const std::string &, const std::string &);
   void PassCourse(Student *, Course *, float);
-  void PrintDetailedSemester(std::string, int);
-  void PrintDetailedYear(std::string, int);
+  void PrintDetailedSemester(const std::string &, int);
+  void PrintDetailedYear(const std::string &, int);
   void StartSemester(void);
   void EndSemester(void);
 

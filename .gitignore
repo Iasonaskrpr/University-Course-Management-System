@@ -1,1 +1,18 @@
 build*
+.vs/
+
+# User-specific files
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+bin/
+obj/
+/CMakeSettings.json
+/University-management-system.sln
+/CppProperties.json
+/University-management-system.vcxproj
+/University-management-system.vcxproj.filters
