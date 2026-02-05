@@ -10,63 +10,70 @@
 class StudManager;
 
 class Student : public Person {
-  int total_ects;
-  std::string AM;
-  int semester;
-   
+  int AccumulatedECTS = 0;
+  std::string AM {
+    "0000000"};
+  // MOVE TO STUDMANAGER
+  int Semester = 1;
+  // MOVE TO STUDMANAGER
+  int PassedMandatorySubjects = 0;
    //FIXME: These should also be moved to the student manager
   // A mapping of Course ID to a pair of (grade, semester)
   std::unordered_map<int, std::pair<float, int>>
       PassedCourses; // the map contains the courses that the student passed
                      // with the grade
-  std::vector<Course *>
+   
+  std::vector<std::shared_ptr<Course>>
       Courses; // the vector contains  the courses that the student enrolled
-  int countMandatory = 0; // counts the madatory courses that he passed
+   // counts the madatory courses that he passed
 public:
   // constructors
-  Student();
-  Student(const std::string&,const int, const std::string&, const std::string&,const std::string&, int);
-
+  Student ::Student() : Person() {}
+  Student ::Student(std::string Name, int Age, std::string Email, Gender Sex,
+                    std::string AM, int Semester)
+      : Person(std::move(Name), Sex, Age, std::move(Email)), AM(AM),
+        Semester(Semester) {}
   // destructor
-  ~Student();
+  ~Student() = default;
+  // TODO: Handle Copy constructors and move semantics
 
   // set functions
   // FIXME: This should be moved to student manager class, as the semester
   // should be updated by the secretary when the semester ends, not by the
   // student itself
-  void SetSemester(int);
-  void SetAM(std::string);
-  void SetECTS(int);
+  void setSemester(int Semester);
+  void setAM(std::string AM);
+  //MOVE TO STUDMANAGER void setECTS(int ECTS);
 
   // get functions
-  int GetECTS(void) const;
-  std::string GetAM(void) const;
-  int GetSemester(void) const;
-  int GetMandatoryCount(void) const;
+  int getECTS(void) const;
+  const std::string& getAM(void) const;
+  int getSemester(void) const;
+  int getPassedMandatory(void) const;
   // FIXME: Return const reference to avoid unnecessary copying of the vector
   // and to prevent modification of the internal state of the student, also make
   // Course shared ptr to avoid dangling pointers   
 
-  std::vector<Course *>
-  GetSubjects(void) const; // returns the vector with courses he enrolled
+  const std::vector<std::shared_ptr<Course>> &
+  getSubjects(void) const; // returns the vector with courses he enrolled
 
-
+   // TODO: Move these to StudManager
   // update functions
-  void UpdateECTS(Course); // overflow operand +=
-  void UpdateCourse(Course *, float);
+  //void updateECTS(Course); // overflow operand +=
+  //void updateCourse(Course *, float);
 
   // functions with different operations
   // FIXME: This should be moved to the student manager class, as the secretary
   // should be responsible for assigning courses to students, not the students
   // themselves
-  void AssignCourse(Course *);
-  void PrintSemester(int);
-  void PrintYear(int);
+  //void AssignCourse(Course *);
+  //void PrintSemester(int);
+  //void PrintYear(int);
 
   // functions that helps with the update of the files
   // FIXME: Remove this and put in manager, these are to be in sql
-  std::vector<std::string> getnamemap(void);
-  std::vector<float> getgrademap(void);
+  //std::vector<std::string> getnamemap(void);
+  //std::vector<float> getgrademap(void);
   friend class StudManager;
 };
 #endif

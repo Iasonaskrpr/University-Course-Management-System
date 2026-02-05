@@ -17,13 +17,13 @@ class Person : public Counter<Person> {
 protected:
   std::string Name;
   Gender Sex;
-  int age;
-  std::string email;
+  int Age;
+  std::string Email;
 
 public:
   // constructors
   Person();
-  Person(const std::string& name, Gender sex, int age, const std::string& email);
+  Person(const std::string Name, Gender Sex, int Age, const std::string Email);
 
   // destructor
   // If you intend Person to be abstract, a pure virtual destructor is fine,
@@ -31,16 +31,16 @@ public:
   virtual ~Person() = 0;
 
   // we need set functions (members are protected)
-  void SetAge(int age);
-  void SetSex(Gender sex);
-  void SetName(const std::string& name);
-  void Setemail(const std::string& email);
+  void setAge(int Age);
+  void setSex(Gender Sex);
+  void setName(std::string Name);
+  void setEmail(std::string Email);
 
   // we need get functions (members are protected)
-  const std::string& Getemail() const;
-  int GetAge() const;
-  Gender GetSex() const;
-  const std::string& GetName() const;
+  const std::string& getEmail() const;
+  int getAge() const;
+  Gender getSex() const;
+  const std::string& getName() const;
 
   // Functions for the counter
   void printCount() const;
