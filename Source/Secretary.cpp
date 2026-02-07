@@ -23,7 +23,7 @@ std::shared_ptr<Student> Secretary::FindStud(int id) {
 std::shared_ptr<Professor> Secretary::FindProf(int id) {
   auto it = Professors.find(id);
   if (it != Professors.end()) {
-    return it->second; 
+    return it->second;
   }
   return nullptr;
 }
@@ -117,12 +117,12 @@ void Secretary::DeleteProf(int key) {
 }
 
 // we delete a course from the vector
-void Secretary::DeleteCourse(int key) { 
-    auto it = Courses.find(key);
-    if (it != Courses.end()) {
-      it->second.reset();
-      Courses.erase(it);
-    }
+void Secretary::DeleteCourse(int key) {
+  auto it = Courses.find(key);
+  if (it != Courses.end()) {
+    it->second.reset();
+    Courses.erase(it);
+  }
 }
 
 // function that updates all the datas when a student pass a course

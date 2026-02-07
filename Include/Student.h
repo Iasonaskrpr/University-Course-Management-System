@@ -3,77 +3,57 @@
 
 #include <Course.h>
 #include <Person.h>
+#include <StudManager.h>
+#include <cmath>
+#include <ranges>
 #include <unordered_map>
 #include <vector>
-#include <StudManager.h>
-
 class StudManager;
 
 class Student : public Person {
-  int AccumulatedECTS = 0;
-  std::string AM {
-    "0000000"};
-  // MOVE TO STUDMANAGER
+  int AccumulatedECTS{};
+  int ID{};
   int Semester = 1;
-  // MOVE TO STUDMANAGER
   int PassedMandatorySubjects = 0;
-   //FIXME: These should also be moved to the student manager
-  // A mapping of Course ID to a pair of (grade, semester)
-  std::unordered_map<int, std::pair<float, int>>
-      PassedCourses; // the map contains the courses that the student passed
-                     // with the grade
-   
-  std::vector<std::shared_ptr<Course>>
-      Courses; // the vector contains  the courses that the student enrolled
-   // counts the madatory courses that he passed
-public:
-  // constructors
-  Student ::Student() : Person() {}
-  Student ::Student(std::string Name, int Age, std::string Email, Gender Sex,
-                    std::string AM, int Semester)
-      : Person(std::move(Name), Sex, Age, std::move(Email)), AM(AM),
-        Semester(Semester) {}
-  // destructor
-  ~Student() = default;
-  // TODO: Handle Copy constructors and move semantics
+  // A mapping of Course ID to a struct containing the grade, semester, and
+  // status of the course for the student
+  std::unordered_map<int, CourseRecord> Courses;
 
-  // set functions
-  // FIXME: This should be moved to student manager class, as the semester
-  // should be updated by the secretary when the semester ends, not by the
-  // student itself
-  void setSemester(int Semester);
-  void setAM(std::string AM);
-  //MOVE TO STUDMANAGER void setECTS(int ECTS);
+  // counts the madatory courses that he passed
+  // Keep as private so only a manager can create a student, and the manager can
+  // ensure that the ID is unique and properly assigned
+  Student() : Person() {}
+  Student(std::string Name, int Age, std::string Email, Gender Sex, int ID,
+          int Semester)
+      : Person(std::move(Name), Sex, Age, std::move(Email)), ID(ID),
+        Semester(Semester) {}
+  std::unordered_map<int, CourseRecord> &getCourses() { return Courses; }
+
+public:
+  // destructor
+  ~Student() {}
+  Student(const Student &) = delete;
+  Student &operator=(const Student &) = delete;
+  Student(Student &&) = delete;
+  Student &operator=(Student &&) = delete;
 
   // get functions
   int getECTS(void) const;
-  const std::string& getAM(void) const;
+  int getID(void) const;
   int getSemester(void) const;
   int getPassedMandatory(void) const;
-  // FIXME: Return const reference to avoid unnecessary copying of the vector
-  // and to prevent modification of the internal state of the student, also make
-  // Course shared ptr to avoid dangling pointers   
-
-  const std::vector<std::shared_ptr<Course>> &
-  getSubjects(void) const; // returns the vector with courses he enrolled
-
-   // TODO: Move these to StudManager
-  // update functions
-  //void updateECTS(Course); // overflow operand +=
-  //void updateCourse(Course *, float);
+  std::span<const CourseRecord> getCourses(int id, bool IncludeFailed = true,
+                                           bool IncludePassed = true,
+                                           bool IncludeCurrent = true) const;
+  float calculateAverage() const;
+  operator int() { return ID; }
 
   // functions with different operations
-  // FIXME: This should be moved to the student manager class, as the secretary
-  // should be responsible for assigning courses to students, not the students
-  // themselves
-  //void AssignCourse(Course *);
-  //void PrintSemester(int);
-  //void PrintYear(int);
+  // FIXME: These should change to conform to the new changes
+  // void AssignCourse(Course *);
+  // void PrintSemester(int);
+  // void PrintYear(int);
 
-  // functions that helps with the update of the files
-  // FIXME: Remove this and put in manager, these are to be in sql
-  //std::vector<std::string> getnamemap(void);
-  //std::vector<float> getgrademap(void);
   friend class StudManager;
 };
 #endif

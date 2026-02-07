@@ -1,6 +1,6 @@
 add_library(ManagementLibrary
             Course.cpp
-            Grades.cpp
+            
             Person.cpp
             Professor.cpp
             Secretary.cpp

@@ -4,12 +4,7 @@
 #include "Counter.h"
 #include <string>
 
-enum class Gender {
-  Unspecified = 0,
-  Male,
-  Female,
-  Other
-};
+enum class Gender { Unspecified = 0, Male, Female, Other };
 
 // We use CRTP to keep a counter on the total instances of Person
 class Person : public Counter<Person> {
@@ -37,10 +32,10 @@ public:
   void setEmail(std::string Email);
 
   // we need get functions (members are protected)
-  const std::string& getEmail() const;
+  const std::string &getEmail() const;
   int getAge() const;
   Gender getSex() const;
-  const std::string& getName() const;
+  const std::string &getName() const;
 
   // Functions for the counter
   void printCount() const;

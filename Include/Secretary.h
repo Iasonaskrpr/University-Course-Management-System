@@ -5,9 +5,9 @@
 #include <Professor.h>
 #include <Student.h>
 #include <iostream>
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
 
 class Secretary {
   Secretary();
@@ -17,16 +17,17 @@ class Secretary {
       Professors; // Mapping of professor ID to Professor object
   std::unordered_map<int, std::shared_ptr<Course>>
       Courses;        // Mapping of course ID to Course object
-  int MandatoryCount;            // the number of the mandatory courses
+  int MandatoryCount; // the number of the mandatory courses
 public:
   // This is the static method that controls the access to the singleton
   // instance
   static Secretary &getInstance() {
-    static Secretary instance; 
+    static Secretary instance;
     return instance;
   }
 
-  // Delete copy and assignment constructor to avoid creation of multiple Secretary instances
+  // Delete copy and assignment constructor to avoid creation of multiple
+  // Secretary instances
   Secretary(const Secretary &S) = delete;
   void operator=(const Secretary &S) = delete;
 
@@ -53,7 +54,7 @@ public:
   std::vector<Student *> Degree(void);
 
   // functions with different operations
-  void PrintStats(const std::string&);
+  void PrintStats(const std::string &);
   bool RegisterStudent(const std::string &, const std::string &);
   bool AssignProf(const std::string &, const std::string &);
   void PassCourse(Student *, Course *, float);
