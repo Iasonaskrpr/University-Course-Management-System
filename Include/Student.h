@@ -22,7 +22,6 @@ class Student : public Person {
   // counts the madatory courses that he passed
   // Keep as private so only a manager can create a student, and the manager can
   // ensure that the ID is unique and properly assigned
-  Student() : Person() {}
   Student(std::string Name, int Age, std::string Email, Gender Sex, int ID,
           int Semester)
       : Person(std::move(Name), Sex, Age, std::move(Email)), ID(ID),
