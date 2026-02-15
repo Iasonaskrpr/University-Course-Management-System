@@ -17,10 +17,13 @@ protected:
   // constructors
   template <typename T1, typename T2>
   requires(!std::is_same_v<std::remove_cvref_t<T1>, Person>)
-  Person(T1&& Name, Gender Sex, int Age, T2&& Email) 
+  Person(T1&& Name, Gender Sex, uint8_t Age, T2&& Email) 
 	  : Name(std::forward<T1>(Name)), Sex(Sex), Age(Age), Email(std::forward<T2>(Email)) {}
 
 public:
+  // constructors
+  Person(std::string Name, Gender Sex, uint8_t Age, std::string Email);
+
   // destructor
   // If you intend Person to be abstract, a pure virtual destructor is fine,
   // but it still needs an out-of-line definition.

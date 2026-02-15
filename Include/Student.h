@@ -26,7 +26,7 @@ class Student : public Person {
   // ensure that the ID is unique and properly assigned
   template <typename T1, typename T2>
   requires(!std::is_same_v<std::remove_cvref_t<T1>, Student>)
-  Student(T1&& Name, int Age, T2&& Email, Gender Sex, int ID,
+  Student(T1&& Name, uint8_t Age, T2&& Email, Gender Sex, int ID,
           int Semester)
       : Person(std::forward<T1>(Name), Sex, Age, std::forward<T2>(Email)), ID(ID),
         Semester(Semester) {}
