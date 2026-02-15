@@ -42,6 +42,23 @@ float Student::calculateAverage() const {
   return std::round((average / getECTS()) * 100.0f) / 100.0f;
 }
 
+void Student::enrollCourse(int courseID) {
+  auto it = Courses.find(courseID);
+  if (Courses.find(courseID) == Courses.end() ) {
+    // FIXME: Get the correct ECTS when a findCourse function is implemented
+    Courses[courseID] = CourseRecord{courseID, 0.0f, Semester, 6, CourseStatus::Enrolled};
+  } else if (it->second.status == CourseStatus::Failed) {
+      it->second.status = CourseStatus::Enrolled;
+      it->second.semester = Semester;
+      it->second.grade = 0.0f;
+  }
+  else if(it->second.status == CourseStatus::Passed){
+      throw StudentException("Student with ID: " + std::to_string(ID) +  " has already passed this course!");
+  } else {
+       throw StudentException("Student with ID: " + std::to_string(ID) +  " is already enrolled in this course!");
+  }
+}
+
 // we update the course by assigning a grade
 // void Student ::UpdateCourse(Course *C, float Grade) {
 //  Grades G;

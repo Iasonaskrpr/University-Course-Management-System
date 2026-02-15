@@ -8,6 +8,8 @@
 #include <ranges>
 #include <unordered_map>
 #include <vector>
+#include <concepts>
+#include <type_traits>
 class StudManager;
 
 class Student : public Person {
@@ -17,15 +19,16 @@ class Student : public Person {
   int PassedMandatorySubjects = 0;
   // A mapping of Course ID to a struct containing the grade, semester, and
   // status of the course for the student
-  std::unordered_map<int, CourseRecord> Courses;
+  std::unordered_map<int, CourseRecord> Courses; 
 
   // counts the madatory courses that he passed
   // Keep as private so only a manager can create a student, and the manager can
   // ensure that the ID is unique and properly assigned
-  Student() : Person() {}
-  Student(std::string Name, int Age, std::string Email, Gender Sex, int ID,
+  template <typename T1, typename T2>
+  requires(!std::is_same_v<std::remove_cvref_t<T1>, Student>)
+  Student(T1&& Name, int Age, T2&& Email, Gender Sex, int ID,
           int Semester)
-      : Person(std::move(Name), Sex, Age, std::move(Email)), ID(ID),
+      : Person(std::forward<T1>(Name), Sex, Age, std::forward<T2>(Email)), ID(ID),
         Semester(Semester) {}
   std::unordered_map<int, CourseRecord> &getCourses() { return Courses; }
 
@@ -45,6 +48,7 @@ public:
   std::span<const CourseRecord> getCourses(int id, bool IncludeFailed = true,
                                            bool IncludePassed = true,
                                            bool IncludeCurrent = true) const;
+  void enrollCourse(int courseID);
   float calculateAverage() const;
   operator int() { return ID; }
 

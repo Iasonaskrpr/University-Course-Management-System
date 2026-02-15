@@ -1,14 +1,5 @@
 #include <Person.h>
 #include <iostream>
-
-// constructors
-Person::Person()
-    : Name(std::string{}), Sex(Gender::Unspecified), Age(-1),
-      Email(std::string{}) {}
-
-Person ::Person(std::string Name, Gender Sex, int Age, std::string Email)
-    : Name(std::move(Name)), Sex(Sex), Age(Age), Email(std::move(Email)) {}
-
 // pure vitual destructor
 Person ::~Person() {}
 
