@@ -12,7 +12,7 @@ class Person : public Counter<Person> {
 protected:
   std::string Name;
   Gender Sex;
-  int Age;
+  uint8_t Age;
   std::string Email;
   // constructors
   template <typename T1, typename T2>
@@ -27,22 +27,18 @@ public:
   virtual ~Person() = 0;
 
   // we need set functions (members are protected)
-  void setAge(int Age);
+  void setAge(uint8_t Age);
   void setSex(Gender Sex);
   void setName(std::string Name);
   void setEmail(std::string Email);
 
   // we need get functions (members are protected)
   const std::string &getEmail() const;
-  int getAge() const;
+  uint8_t getAge() const;
   Gender getSex() const;
   const std::string &getName() const;
 
   // Functions for the counter
   void printCount() const;
 };
-
-// Definition for the (pure) virtual destructor to satisfy the linker.
-inline Person::~Person() {}
-
 #endif

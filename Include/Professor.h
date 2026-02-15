@@ -6,35 +6,34 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <span>
+#include <algorithm>
 
 class Course;
 
 class Professor : public Person {
+  id_t ProfessorID;
+  std::vector<int> AssignedCourses; // a vector of course IDs that the professor is assigned to teach
+  Professor(std::string Name, std::string email, uint8_t age,
+                        Gender Sex, id_t ProfessorID)
+      : Person(Name, Sex, age, email), ProfessorID(ProfessorID) {}
 
-  std::vector<Course *>
-      Courses; // the vector contains the courses that the professor teaches
-
-public:
-  // constructors
-  Professor();
-  Professor(std::string, std::string, int, std::string);
-  Professor(std::string, std::string, int, std::string, std::vector<Course *>);
-
-  // destructor
-  ~Professor();
-
-  // set and get function
-  void SetCourses(Course *); // Two set courses functions one to delete a course
-                             // and one to add
-  std::vector<Course *> GetCourses(void) const;
-
-  // overload functions of the operators
-  void operator=(const Professor &P);
-  friend std::istream &operator>>(std::istream &str, Professor *P);
-
-  // functions with different operations
-  void RemoveCourse(std::string);
+  Professor(std::string Name, std::string email, uint8_t age,
+                        Gender Sex, id_t ProfessorID, std::vector<int> Courses)
+      : Person(Name, Sex, age, email), ProfessorID(ProfessorID), AssignedCourses(std::move(Courses)) {}
+  void removeCourse(id_t courseID);
   void RemoveAllCourses(void);
-  void PrintStats(void);
+  void setCourses(std::vector<int> courses) { AssignedCourses = std::move(courses); }
+  void addCourse(int courseID) { AssignedCourses.push_back(courseID); }
+  
+public:
+  // destructor
+  ~Professor(){}
+  Professor(const Professor &) = delete;
+  Professor &operator=(const Professor &) = delete;
+  Professor(Professor &&) = delete;
+  Professor &operator=(Professor &&) = delete;
+  std::span<const int> GetCourses(void) const { return AssignedCourses; }
+  void printStats(void);
 };
 #endif
